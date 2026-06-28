@@ -5,7 +5,7 @@ from .transaction_event import TransactionEvent
 from .transformation_event import TransformationEvent
 from .association_event import AssociationEvent
 
-__all__ = [
+__all__=[
     "EPCISEvent",
     "ObjectEvent",
     "AggregationEvent",

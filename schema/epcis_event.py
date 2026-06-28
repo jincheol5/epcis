@@ -1,7 +1,7 @@
 from datetime import datetime
-from typing import Any, Optional, Union
+from typing import Any,Optional,Union
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel,ConfigDict,Field
 
 try:
     from . import field_element as FE
@@ -10,18 +10,18 @@ except ImportError:
 
 
 class EPCISEvent(BaseModel):
-    model_config = ConfigDict(
+    model_config=ConfigDict(
         extra="allow",
         populate_by_name=True,
         validate_assignment=True,
     )
 
-    context: Optional[Any] = Field(default=None, alias="@context")
+    context: Optional[Any]=Field(default=None,alias="@context")
     eventTime: datetime
-    eventTimeZoneOffset: str = Field(
+    eventTimeZoneOffset: str=Field(
         pattern=r"^([+-])((0[0-9]|1[0-3]):([0-5][0-9])|14:00)$"
     )
-    recordTime: Optional[datetime] = None
-    eventID: Optional[FE.Uri] = None
-    certificationInfo: Optional[Union[FE.Uri, list[FE.Uri]]] = None
-    errorDeclaration: Optional[FE.ErrorDeclaration] = None
+    recordTime: Optional[datetime]=None
+    eventID: Optional[FE.URI]=None
+    certificationInfo: Optional[Union[FE.URI,list[FE.URI]]]=None
+    errorDeclaration: Optional[FE.ErrorDeclaration]=None
