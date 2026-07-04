@@ -3,10 +3,7 @@ from typing import Any,Optional,Union
 
 from pydantic import BaseModel,ConfigDict,Field
 
-try:
-    from . import field_element as FE
-except ImportError:
-    import field_element as FE
+from . import field_element as FE
 
 
 class EPCISEvent(BaseModel):

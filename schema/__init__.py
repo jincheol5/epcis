@@ -1,15 +1,8 @@
-from .epcis_event import EPCISEvent
-from .object_event import ObjectEvent
-from .aggregation_event import AggregationEvent
-from .transaction_event import TransactionEvent
-from .transformation_event import TransformationEvent
-from .association_event import AssociationEvent
+from .epcis_event import *
+from .epcis_document import *
+from .object_event import *
+from .aggregation_event import *
+from .transaction_event import *
+from .transformation_event import *
+from .association_event import *
 
-__all__=[
-    "EPCISEvent",
-    "ObjectEvent",
-    "AggregationEvent",
-    "TransactionEvent",
-    "TransformationEvent",
-    "AssociationEvent",
-]

@@ -2,12 +2,8 @@ from typing import Literal,Optional
 
 from pydantic import Field,model_validator
 
-try:
-    from . import field_element as FE
-    from .epcis_event import EPCISEvent
-except ImportError:
-    import field_element as FE
-    from epcis_event import EPCISEvent
+from . import field_element as FE
+from .epcis_event import EPCISEvent
 
 
 class TransformationEvent(EPCISEvent):
