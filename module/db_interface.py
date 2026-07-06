@@ -35,8 +35,16 @@ class DBInterface:
         if self.client is None:
             self.connect_db()
         event_data_collection=self.db["event_data"]
+        try:
+            event_data_collection.insert_many(event_list,ordered=False) # ordered=False: 중복 _id 있으면 skip
+        except PyMongoError as e:
+            print(f"MongoDB insert error: {e}")
 
-    def insert_master_data(self,vocabulary_list:list):
+    def insert_master_data(self,vocabulary_element_list:list):
         """
         """
         master_data_collection=self.db["master_data"]
+        try:
+            master_data_collection.insert_many(vocabulary_element_list,ordered=False) # ordered=False: 중복 _id 있으면 skip
+        except PyMongoError as e:
+            print(f"MongoDB insert error: {e}")

@@ -1,9 +1,22 @@
 from uuid import uuid4
 from typing import Any
+from schema import EPCISDocument
 
 class CaptureModule:
     """
     """
+
+    @staticmethod
+    def preprocess_epcis_document(doc:EPCISDocument):
+        """
+        Extract event list and vocabulary list from a validated EPCISDocument.
+        """
+        event_list=doc.epcisBody.eventList
+        vocabulary_list=[]
+        if doc.epcisHeader and doc.epcisHeader.epcisMasterData:
+            vocabulary_list=doc.epcisHeader.epcisMasterData.vocabularyList
+        return event_list,vocabulary_list
+
     @staticmethod
     def convert_events_for_mongoDB(event_list:list):
         """
