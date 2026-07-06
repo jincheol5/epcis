@@ -5,6 +5,7 @@ from pydantic import BaseModel,ConfigDict,Field
 
 from .aggregation_event import AggregationEvent
 from .association_event import AssociationEvent
+from .epcis_master import EPCISMaster
 from .object_event import ObjectEvent
 from .transaction_event import TransactionEvent
 from .transformation_event import TransformationEvent
@@ -29,7 +30,7 @@ class EPCISBaseDocumentElement(BaseModel):
     )
 
 class EPCISHeader(EPCISBaseDocumentElement):
-    epcisMasterData: Optional[dict[str,Any]]=None
+    epcisMasterData: Optional[EPCISMaster]=None
 
 class EPCISBody(EPCISBaseDocumentElement):
     eventList: list[EPCISEventType]=Field(default_factory=list)

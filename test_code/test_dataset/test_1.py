@@ -10,7 +10,7 @@ Check Dataset.
 """
 def test_fn(**kwargs):
     # dataset_name=kwargs["dataset_name"]
-    dataset_dir_name=f"epcis-synthetic-food-supply-chain"
+    dataset_dir_name=f"synthetic-food-supply-chain-dataset"
     dataset_file_name=f"synthetic-food-supply-chain-dataset.json"
     dataset_path=os.path.join("..","data","epcis",dataset_dir_name,dataset_file_name)
     match kwargs['test_num']:
@@ -33,6 +33,7 @@ def test_fn(**kwargs):
             print(f"length of vocabulary list: {len(vocabulary_list)}",end="\n\n")
             for vocabulary in vocabulary_list:
                 print(f"vocabulary keys: {vocabulary.keys()}",end="\n\n")
+                print(f"vocabulary type: {vocabulary['type']}",end="\n\n")
                 vocabulary_element_list=vocabulary["vocabularyElementList"]
                 print(f"length of vocabulary elements: {len(vocabulary_element_list)}",end="\n\n")
                 for element in vocabulary_element_list:

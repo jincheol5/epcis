@@ -2,7 +2,7 @@ from datetime import datetime
 from decimal import Decimal
 from enum import Enum
 from typing import Any,Optional,Union
-from pydantic import BaseModel,ConfigDict,Field,model_validator
+from pydantic import BaseModel,ConfigDict,Field,StrictFloat,StrictInt,StrictStr,model_validator
 
 
 URI=str
@@ -248,6 +248,7 @@ SourceDestinationTypeValue=Union[SourceDestinationType,VocabValue]
 MeasurementTypeValue=Union[MeasurementType,VocabValue]
 SensorAlertTypeValue=Union[SensorAlertType,VocabValue]
 ComponentValue=Union[Component,VocabValue]
+MasterDataAttributeValue=Union[StrictInt,StrictFloat,StrictStr,dict[str,Any]]
 
 
 class QuantityElement(EPCISFieldElement):
@@ -341,6 +342,22 @@ class ErrorDeclaration(EPCISExtensibleFieldElement):
     declarationTime: datetime
     reason: Optional[Union[ErrorReason,URI]]=None
     correctiveEventIDs: list[URI]=Field(default_factory=list)
+
+
+class MasterDataAttribute(EPCISExtensibleFieldElement):
+    id: URI
+    attribute: Optional[MasterDataAttributeValue]=None
+
+
+class VocabularyElement(EPCISExtensibleFieldElement):
+    id: URI
+    attributes: Optional[list[MasterDataAttribute]]=None
+    children: Optional[list[URI]]=None
+
+
+class Vocabulary(EPCISExtensibleFieldElement):
+    type: URI
+    vocabularyElementList: Optional[list[VocabularyElement]]=None
 
 
 ExtensionFields=dict[str,Any]
