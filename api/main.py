@@ -2,15 +2,15 @@ import uvicorn
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from module import DBInterface
-from routers.capture.capture import capture_router
-from routers.query.queries import queries_router 
-from routers.query.events import query_events_router
-from routers.query.eventTypes import query_eventTypes_router
-from routers.query.epcs import query_epcs_router
-from routers.query.bizSteps import query_bizSteps_router
-from routers.query.bizLocations import query_bizLocations_router
-from routers.query.readPoints import query_readPoints_router
-from routers.query.dispositions import query_dispositions_router
+from api.routers.capture.capture import capture_router
+from api.routers.query.queries import queries_router 
+from api.routers.query.events import query_events_router
+from api.routers.query.eventTypes import query_eventTypes_router
+from api.routers.query.epcs import query_epcs_router
+from api.routers.query.bizSteps import query_bizSteps_router
+from api.routers.query.bizLocations import query_bizLocations_router
+from api.routers.query.readPoints import query_readPoints_router
+from api.routers.query.dispositions import query_dispositions_router
 
 @asynccontextmanager
 async def lifespan(app:FastAPI):
@@ -30,4 +30,4 @@ app.include_router(query_readPoints_router)
 app.include_router(query_dispositions_router)
 
 if __name__ == "__main__":
-    uvicorn.run("main:app",host="127.0.0.1",port=8000,reload=True)
+    uvicorn.run("api.main:app",host="127.0.0.1",port=8000,reload=True)
