@@ -1,34 +1,24 @@
 from fastapi import APIRouter,Request
+from starlette.concurrency import run_in_threadpool
 from module import DBInterface
+from .response import event_query_document,event_subresource,require_events,uri_collection
 
 query_eventTypes_router=APIRouter(prefix="/eventTypes",tags=["eventTypes"])
 
-@query_eventTypes_router.post("/")
-def get_eventTypes(request:Request):
-    """
-    DB 내의 eventTypes을 조회
-    """
-    # request를 통해 FastAPI app 객체에 접근해서 db를 꺼내는 것
+@query_eventTypes_router.get("/")
+async def get_eventTypes(request:Request):
     db:DBInterface=request.app.state.db
+    event_types=await run_in_threadpool(db.find_event_types)
+    return uri_collection(event_types)
 
 @query_eventTypes_router.get("/{eventType}")
-def get_resources_of_eventType(
-        eventType:str,
-        request:Request
-    ):
-    """
-    eventType의 resources를 조회
-    """
-    # request를 통해 FastAPI app 객체에 접근해서 db를 꺼내는 것
+async def get_resources_of_eventType(eventType:str,request:Request):
     db:DBInterface=request.app.state.db
+    events=await run_in_threadpool(db.find_events_by_event_type,eventType)
+    return event_subresource(request,bool(events))
 
 @query_eventTypes_router.get("/{eventType}/events")
-def get_events_of_eventType(
-        eventType:str,
-        request:Request
-    ):
-    """
-    eventType의 events를 조회
-    """
-    # request를 통해 FastAPI app 객체에 접근해서 db를 꺼내는 것
+async def get_events_of_eventType(eventType:str,request:Request):
     db:DBInterface=request.app.state.db
+    events=await run_in_threadpool(db.find_events_by_event_type,eventType)
+    return event_query_document(require_events(events))

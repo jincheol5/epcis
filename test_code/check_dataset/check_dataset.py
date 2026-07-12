@@ -52,7 +52,7 @@ def test_fn(**kwargs):
 
 if __name__=="__main__":
     """
-    Execute test_fn
+    Check Dataset.
     """
     parser=argparse.ArgumentParser()
     parser.add_argument("--test_num",type=int,default=1)
